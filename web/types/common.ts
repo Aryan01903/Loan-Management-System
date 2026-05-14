@@ -1,0 +1,18 @@
+export type TPaginationExtra = {
+    page: number,
+    limit: number,
+    total?: number,
+    getTotal?: boolean | number,
+    withGroup?: boolean | number,
+    withOutData?: boolean | number
+}
+export type TApiError = {
+    errors?: { msg: string }[]
+}
+export interface TResponse<T = null> extends TApiError {
+    success: boolean,
+    message: string,
+    code: number,
+    data: T,
+    extra?: TPaginationExtra
+} 
