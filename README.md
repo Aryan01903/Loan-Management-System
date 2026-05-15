@@ -2,6 +2,9 @@
 
 A full-stack Loan Management System built with **Next.js**, **Node.js**, **Express**, **MongoDB**, and **TypeScript**. It supports a complete loan lifecycle — from borrower application to loan closure — with role-based access control for internal operations.
 
+🌐 **Live Demo:** [https://credaxis.vercel.app](https://credaxis.vercel.app)
+⚙️ **API:** [https://api-credaxis.onrender.com](https://api-credaxis.onrender.com)
+
 ---
 
 ## Tech Stack
@@ -13,6 +16,8 @@ A full-stack Loan Management System built with **Next.js**, **Node.js**, **Expre
 | Database | MongoDB + Mongoose |
 | Auth | JWT + bcrypt |
 | File Upload | Cloudinary |
+| Frontend Hosting | Vercel |
+| Backend Hosting | Render |
 
 ---
 
@@ -66,6 +71,19 @@ Where:
 
 ---
 
+## Seed Accounts
+
+| Role | Email | Password |
+|---|---|---|
+| Admin | admin@credaxis.com | Admin@123 |
+| Sales | sales@credaxis.com | Sales@123 |
+| Sanction | sanction@credaxis.com | Sanction@123 |
+| Disbursement | disbursement@credaxis.com | Disburse@123 |
+| Collection | collection@credaxis.com | Collect@123 |
+| Borrower | borrower@credaxis.com | Borrower@123 |
+
+---
+
 ## Getting Started
 
 ### Prerequisites
@@ -107,9 +125,12 @@ CLOUDINARY_CLOUD_NAME=your_cloud_name
 CLOUDINARY_API_KEY=your_api_key
 CLOUDINARY_API_SECRET=your_api_secret
 ```
+
 ---
 
 ## API Overview
+
+Base URL: `https://api-credaxis.onrender.com`
 
 ### Auth
 | Method | Endpoint | Description |
