@@ -69,9 +69,25 @@ Where:
   T = Tenure in days
 ```
 
+## Getting Started
+
+### Prerequisites
+- Node.js v18+
+- MongoDB (local or Atlas)
+- Cloudinary account (for file uploads)
+
 ---
 
-## Seed Accounts
+## Seed Database
+
+Run the seed script to pre-create one account per role:
+
+```bash
+cd api
+npm run seed
+```
+
+### Login Credentials
 
 | Role | Email | Password |
 |---|---|---|
@@ -81,17 +97,6 @@ Where:
 | Disbursement | disbursement@credaxis.com | Disburse@123 |
 | Collection | collection@credaxis.com | Collect@123 |
 | Borrower | borrower@credaxis.com | Borrower@123 |
-
----
-
-## Getting Started
-
-### Prerequisites
-- Node.js v18+
-- MongoDB (local or Atlas)
-- Cloudinary account (for file uploads)
-
----
 
 ### Backend Setup
 
