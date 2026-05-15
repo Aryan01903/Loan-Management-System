@@ -42,7 +42,7 @@ class UserService {
     data: null as any,
     status: false,
   };
-
+  try{
     const docData = await UserModel.findOne({ email: data.email });
     if (!docData) throw new Error("user not found!");
 
@@ -63,6 +63,9 @@ class UserService {
 
     response.status = true;
     return response;
+    } catch(err){
+      throw err
+    }
   }
 }
 

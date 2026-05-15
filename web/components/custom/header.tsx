@@ -43,7 +43,7 @@ export default function Header() {
           </button>
 
           {openMenu && (
-            <div className="absolute right-4 top-16 w-40 bg-white border border-gray-500 rounded-xl shadow-lg flex flex-col p-2 sm:hidden">
+            <div className="absolute right-4 top-16 w-40 bg-white border border-gray-500 rounded-xl shadow-lg flex flex-col p-2 sm:hidden transition-all duration-200 ease-in-out">
               {!user ? (
                 <>
                   <button

@@ -1,8 +1,10 @@
 import LoanModel from "../models/loan";
 import PaymentModel from "../models/payment";
+import UserModel from "../models/user";
 import { isValidTransition } from "../types/loan";
 import type { ILoan, LoanStatus } from "../types/loan";
 import type mongoose from "mongoose";
+import { IUser } from "../types/user";
 
 class LoanServices {
   static async createLoan(data: ILoan) {
@@ -132,6 +134,42 @@ class LoanServices {
       await loan.save();
 
       response.data = loan;
+      response.status = true;
+
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+
+  static async getSalesLeads() {
+    const response = {
+      data: [] as any[],
+      status: false,
+    };
+
+    try {
+      const borrowers = await UserModel.find(
+        { role: "borrower" },
+        "-password"
+      ).lean();
+
+      const borrowerIds = borrowers.map((b) => b._id);
+
+      const loans = await LoanModel.find({
+        borrowerId: { $in: borrowerIds },
+      }).lean();
+
+      const loanUserIds = new Set(
+        loans.map((l) => l.borrowerId.toString())
+      );
+
+      const leads = borrowers.filter(
+        (b) => !loanUserIds.has(b._id.toString())
+      );
+
+      response.data = leads;
       response.status = true;
 
       return response;

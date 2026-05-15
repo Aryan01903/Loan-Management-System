@@ -13,6 +13,13 @@ LoanRoutes.post(
 );
 
 LoanRoutes.get(
+    "/leads", 
+    validateToken,
+    roleMiddleware("admin", "sales"),
+    LoanController.getSalesLeads
+)
+
+LoanRoutes.get(
     "/status/:status",
     validateToken,
     roleMiddleware("admin", "sanction", "disbursement", "collection", "sales"),
@@ -38,5 +45,6 @@ LoanRoutes.patch(
     roleMiddleware("sanction", "disbursement", "admin"),
     LoanController.updateLoanStatus
 );
+
 
 export default LoanRoutes;

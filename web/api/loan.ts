@@ -1,5 +1,6 @@
 import axios from "@/lib/axios";
 import { ILoan, LoanStatus } from "@/types/api-response/loan";
+import { IUser } from "@/types/api-response/user";
 import { TResponse } from "@/types/common";
 
 export const createLoan = async (data: {
@@ -46,6 +47,13 @@ export const updateLoanStatus = async (
   const res = await axios.patch<TResponse<ILoan>>(
     `/loan/${id}/status`,
     data
+  );
+  return res.data.data;
+};
+
+export const getSalesLeads = async () => {
+  const res = await axios.get<TResponse<IUser[]>>(
+    `/loan/leads`
   );
   return res.data.data;
 };
