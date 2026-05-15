@@ -23,8 +23,12 @@ class UserService {
         process.env.JWT_SECRET!,
         { expiresIn: "7d" },
       );
-
-      response.data = { ...docData, token: token };
+      
+      const { password, ...rest } = docData.toObject();
+      response.data = {
+        ...rest,
+        token,
+      };
       response.status = true;
 
       return response;
@@ -34,32 +38,31 @@ class UserService {
   }
 
   static async login(data: Pick<IUser, "email" | "password">) {
-    const response = {
-      data: null as any,
-      status: false,
+  const response = {
+    data: null as any,
+    status: false,
+  };
+
+    const docData = await UserModel.findOne({ email: data.email });
+    if (!docData) throw new Error("user not found!");
+
+    const isMatch = await bcrypt.compare(data.password, docData.password);
+    if (!isMatch) throw new Error("invalid credentials!");
+
+    const token = jwt.sign(
+      { id: docData._id, role: docData.role },
+      process.env.JWT_SECRET!,
+      { expiresIn: "7d" }
+    );
+
+    const { password, ...rest } = docData.toObject();
+    response.data = {
+      ...rest,
+      token,
     };
-    try {
-      const docData = await UserModel.findOne({ email: data.email });
-      if (!docData) {
-        throw new Error("user not found!");
-      }
-      const isMatch = await bcrypt.compare(data.password, docData.password);
-      if (!isMatch) {
-        throw new Error("invalid credentials!");
-      }
-      const token = jwt.sign(
-        { id: docData._id, role: docData.role },
-        process.env.JWT_SECRET!,
-        { expiresIn: "7d" },
-      );
 
-      response.data = { ...docData, token: token };
-      response.status = true;
-
-      return response;
-    } catch (err) {
-      throw err;
-    }
+    response.status = true;
+    return response;
   }
 }
 

@@ -1,12 +1,26 @@
+export type UserRole =
+  | "borrower"
+  | "admin"
+  | "sales"
+  | "sanction"
+  | "disbursement"
+  | "collection";
+
 export interface IUser {
-    name: string;
-    email: string
-    password: string
-    role: "borrower" | "admin" | "sales" | "sanction" | "disbursement" | "collection";
-    pan: string
-    dob: Date
-    monthlySalary: number
-    employmentMode: "salaried" | "self-employed" | "unemployed";
-    isEligible: boolean
-    breChecked: boolean
+  _id: string;
+  name: string;
+  email: string;
+  role: UserRole;
+
+  pan?: string;
+  dob?: string;
+  monthlySalary?: number;
+  employmentMode?: "salaried" | "self-employed" | "unemployed";
+
+  isEligible?: boolean;
+  breChecked?: boolean;
+}
+
+export interface LoginResponse extends IUser {
+  token: string;
 }
