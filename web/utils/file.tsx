@@ -24,10 +24,10 @@ export default function PdfUpload({ onUpload }: Props) {
     try {
       const formData = new FormData();
       formData.append("file", file);
-      formData.append("upload_preset", UPLOAD_PRESET); 
+      formData.append("upload_preset", UPLOAD_PRESET);
 
       const res = await fetch(
-        `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/raw/upload`,
+        `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/auto/upload`,
         {
           method: "POST",
           body: formData,
@@ -37,6 +37,7 @@ export default function PdfUpload({ onUpload }: Props) {
       const data = await res.json();
 
       if (!data.secure_url) {
+        console.error(data);
         throw new Error("Upload failed");
       }
 
@@ -46,7 +47,6 @@ export default function PdfUpload({ onUpload }: Props) {
       };
 
       setFileName(file.name);
-
       onUpload(result);
 
     } catch (err) {
@@ -75,7 +75,7 @@ export default function PdfUpload({ onUpload }: Props) {
       />
 
       {loading && (
-        <p className="text-primary/70 text-sm">Uploading...</p>
+        <p className="text-blue-500 text-sm">Uploading...</p>
       )}
 
       {fileName && (

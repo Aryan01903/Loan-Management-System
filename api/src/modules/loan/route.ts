@@ -42,7 +42,7 @@ LoanRoutes.get(
 LoanRoutes.patch(
     "/:id/status",
     validateToken,
-    roleMiddleware("sanction", "disbursement", "admin"),
+    roleMiddleware("sanction", "disbursement", "admin", "borrower"),
     LoanController.updateLoanStatus
 );
 
