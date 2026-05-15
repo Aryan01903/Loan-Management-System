@@ -90,8 +90,6 @@ npm run dev
 ```bash
 cd client
 npm install
-cp .env.example .env.local
-# Fill in your .env.local values
 npm run dev
 ```
 
