@@ -3,7 +3,7 @@
     "module": "Node16",
     "target": "es2020",
     "outDir": "./dist",
-    "rootDir": "./src",
+    "rootDir": ".",
     "sourceMap": true,
     "declaration": true,
     "strict": true,
