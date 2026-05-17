@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "nodemon --watch src --ext ts --exec ts-node ./src/index.ts",
     "build": "tsc",
-    "start": "node dist/src/index.js",
+    "start": "node dist/index.js",
     "seed": "ts-node src/modules/seed.ts"
   },
   "dependencies": {
