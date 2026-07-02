@@ -8,6 +8,7 @@ import CollectionDashboard from "@/components/pages/Home/Dashboard/Collection";
 import DisbursementDashboard from "@/components/pages/Home/Dashboard/Disbursement";
 import SalesDashboard from "@/components/pages/Home/Dashboard/Sales";
 import SanctionDashboard from "@/components/pages/Home/Dashboard/Sanction";
+import FAQs from "@/components/pages/Home/Faqs";
 import { useAuth } from "@/utils/store/authStore";
 
 export default function HomePage() {
@@ -70,6 +71,7 @@ export default function HomePage() {
       )}
 
       <AboutUs />
+      <FAQs/>
     </div>
   );
 }
