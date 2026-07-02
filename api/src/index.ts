@@ -5,6 +5,7 @@ import cors from "cors";
 import UserRoutes from "./modules/user/route";
 import PaymentRoutes from "./modules/payment/route";
 import LoanRoutes from "./modules/loan/route";
+import UploadRoutes from "./modules/upload/route";
 dotenv.config()
 
 const app = express()
@@ -14,6 +15,7 @@ app.use(cors())
 app.use("/user", UserRoutes);
 app.use("/loan", LoanRoutes);
 app.use("/payment", PaymentRoutes)
+app.use("/upload", UploadRoutes);
 
 const PORT = process.env.PORT || 5050;
 mongoose.connect(process.env.DB_URL!).then(() => {
