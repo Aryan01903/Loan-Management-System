@@ -82,7 +82,7 @@ class LoanServices {
       status: false,
     };
     try {
-      const docData = await LoanModel.find({ borrowerId });
+      const docData = await LoanModel.find({ borrowerId }).sort({_id: -1});
 
       response.data = docData;
       response.status = true;

@@ -41,7 +41,7 @@ export default function FAQs() {
   };
 
   return (
-    <section className="py-10 md:py-16">
+    <section className="pt-10 md:pt-16">
         <div className="text-center mb-10 md:mb-14">
           <p className="text-lg md:text-xl font-semibold tracking-[0.2em] text-[#E8A33D] uppercase mb-3">
             FAQs
