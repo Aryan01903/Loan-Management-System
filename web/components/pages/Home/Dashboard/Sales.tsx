@@ -2,51 +2,61 @@
 
 import { useEffect, useState } from "react";
 import { getSalesLeads } from "@/api/loan";
+import type { IUser } from "@/types/api-response/user";
 
 export default function SalesDashboard() {
-  const [users, setUsers] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [leads, setLeads] = useState<IUser[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const fetchUsers = async () => {
+    const fetchLeads = async () => {
       try {
         setLoading(true);
         const res = await getSalesLeads();
-        setUsers(res || []);
+        setLeads(res || []);
       } catch (err) {
-        console.error("Failed to fetch users", err);
+        console.error("Failed to fetch leads", err);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchUsers();
+    fetchLeads();
   }, []);
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-6">📊 Sales Dashboard</h1>
+    <div>
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-xl md:text-2xl font-bold text-[#0F2C4C]">Sales</h1>
+        <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-100 text-slate-500">
+          {leads.length} leads
+        </span>
+      </div>
 
       {loading ? (
-        <p className="text-gray-500">Loading leads...</p>
-      ) : users.length === 0 ? (
-        <p className="text-gray-500">No leads found.</p>
-      ) : (
         <div className="grid gap-4">
-          {users.map((u) => (
+          {[1, 2].map((i) => (
+            <div key={i} className="h-20 rounded-xl border border-slate-200 bg-slate-50 animate-pulse" />
+          ))}
+        </div>
+      ) : leads.length === 0 ? (
+        <p className="text-sm text-slate-400 border border-dashed border-slate-200 rounded-xl px-4 py-8 text-center">
+          No registered users pending application yet
+        </p>
+      ) : (
+        <div className="grid gap-3">
+          {leads.map((lead) => (
             <div
-              key={u._id}
-              className="border rounded-lg p-4 shadow-sm bg-white"
+              key={lead._id}
+              className="flex items-center justify-between border border-slate-200 rounded-xl p-4 bg-white"
             >
-              <p>
-                <b>Name:</b> {u.name}
-              </p>
-              <p>
-                <b>Email:</b> {u.email}
-              </p>
-              <p className="text-sm text-gray-500 mt-2">
-                👉 Lead (Not applied yet)
-              </p>
+              <div>
+                <p className="text-sm font-semibold text-[#0F2C4C]">{lead.name}</p>
+                <p className="text-xs text-slate-400">{lead.email}</p>
+              </div>
+              <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-200">
+                Not applied yet
+              </span>
             </div>
           ))}
         </div>

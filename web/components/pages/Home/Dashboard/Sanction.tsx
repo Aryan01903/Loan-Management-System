@@ -9,9 +9,9 @@ import RejectModal from "@/components/modal/rejectModal";
 
 export default function SanctionDashboard() {
   const [loans, setLoans] = useState<ILoan[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [rejectModal, setRejectModal] = useState<{ loanId: string } | null>(null);
-  const [rejectionReason, setRejectionReason] = useState("");
+  const [rejectionReason, setRejectionReason] = useState<string>("");
   const [detailModal, setDetailModal] = useState<ILoan | null>(null);
 
   const fetchLoans = async () => {
@@ -26,31 +26,31 @@ export default function SanctionDashboard() {
     }
   };
 
-  useEffect(() => { fetchLoans(); }, []);
+  useEffect(() => {
+    fetchLoans();
+  }, []);
 
   const handleApprove = async (id: string) => {
     try {
       await updateLoanStatus(id, { status: "sanctioned" });
-      alert("Loan Approved");
       setDetailModal(null);
       fetchLoans();
     } catch (err: any) {
-      alert(err.response?.data?.message || "Error");
+      alert(err.response?.data?.message || "Something went wrong");
     }
   };
 
   const handleReject = async () => {
     if (!rejectModal) return;
-    if (!rejectionReason.trim()) return alert("Rejection reason is required!");
+    if (!rejectionReason.trim()) return alert("Rejection reason is required");
     try {
       await updateLoanStatus(rejectModal.loanId, { status: "rejected", rejectionReason });
-      alert("Loan Rejected");
       setRejectModal(null);
       setRejectionReason("");
       setDetailModal(null);
       fetchLoans();
     } catch (err: any) {
-      alert(err.response?.data?.message || "Error");
+      alert(err.response?.data?.message || "Something went wrong");
     }
   };
 
@@ -60,14 +60,29 @@ export default function SanctionDashboard() {
     setRejectionReason("");
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) {
+    return (
+      <div className="grid gap-4">
+        {[1, 2].map((i) => (
+          <div key={i} className="h-24 rounded-2xl border border-slate-200 bg-slate-50 animate-pulse" />
+        ))}
+      </div>
+    );
+  }
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-6">🟡 Sanction Dashboard</h1>
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-xl md:text-2xl font-bold text-[#0F2C4C]">Sanction</h1>
+        <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-100 text-slate-500">
+          {loans.length} pending
+        </span>
+      </div>
 
       {loans.length === 0 ? (
-        <p className="text-gray-500">No applied loans</p>
+        <p className="text-sm text-slate-400 border border-dashed border-slate-200 rounded-xl px-4 py-8 text-center">
+          No applications waiting for review
+        </p>
       ) : (
         <div className="grid gap-4">
           {loans.map((loan) => (
